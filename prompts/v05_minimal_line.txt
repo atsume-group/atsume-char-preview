@@ -1,0 +1,18 @@
+Brand mascot illustration for "Atsume" — a Japanese technology company in Tokyo.
+Non-human geometric character. Vector flat illustration on a warm cream background #F5EFE0.
+Primary ink color #0A0A0A, single accent color burnt orange #E84E1B.
+The character has an OCTAGONAL HEAD derived from a geometric sans-serif M letterform.
+Wearing small minimalist over-ear headphones as a focus motif.
+Tiny dot eyes only, no nose, no mouth or just a tiny dash.
+Clean 1.5pt vector strokes, pixel-perfect geometry but with smooth SVG appearance.
+Square 1:1 composition, character centered with generous breathing room.
+Completely original design — must not resemble any existing IP, anime, manga, or game character.
+No text, no logos, no watermark, no signature.
+Suitable for use from 16px favicon to large print.
+
+CONSTRAINTS (must NOT include): no flames, no fire hair, no fiery effects, no karate gi or martial arts uniform, no dojo background, no "S" symbol or letter on body, no blue belt or sash, no full sci-fi VR goggles (a single horizontal line is OK), no human facial features (nose, mouth shape, human ears), no realistic human face, no resemblance to Astro Boy, Doraemon, Pikachu, or any existing mascot.
+
+V05 - Atsume Minimal Line.
+Pure line art, no fills. Only 1.5pt clean ink lines defining the octagonal head, body, and headphones.
+A single small burnt orange filled dot at the center of the headphones as the only accent.
+Anthropic / Linear / Vercel minimalist editorial style.

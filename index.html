@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Atsume Character Preview — 2026-05-28</title>
+<style>
+  :root{
+    --cream:#F5EFE0;
+    --ink:#0A0A0A;
+    --orange:#E84E1B;
+    --red:#E63329;
+    --steel:#6B7280;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Kaku Gothic ProN",sans-serif;line-height:1.6}
+  body{padding:48px 24px 96px;max-width:1240px;margin:0 auto}
+
+  /* Gate */
+  .gate{position:fixed;inset:0;background:var(--cream);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;z-index:100}
+  .gate.hidden{display:none}
+  .gate h1{font-size:48px;font-weight:900;letter-spacing:-0.02em}
+  .gate h1 .dot{color:var(--orange)}
+  .gate p{color:var(--steel);font-size:14px}
+  .gate form{display:flex;gap:8px}
+  .gate input{padding:14px 18px;font-size:18px;border:2px solid var(--ink);background:var(--cream);color:var(--ink);outline:none;border-radius:0;width:240px}
+  .gate input:focus{border-color:var(--orange)}
+  .gate button{padding:14px 24px;background:var(--ink);color:var(--cream);border:0;font-size:18px;font-weight:700;cursor:pointer}
+  .gate button:hover{background:var(--orange)}
+  .gate .err{color:var(--red);font-size:13px;height:16px}
+
+  /* Header */
+  header{margin-bottom:48px}
+  .brand{font-size:14px;color:var(--steel);letter-spacing:0.1em;text-transform:uppercase}
+  .title{font-size:64px;font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-top:4px}
+  .title .dot{color:var(--orange)}
+  .subtitle{color:var(--steel);font-size:15px;margin-top:12px}
+  .meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:24px;font-size:13px;color:var(--steel)}
+  .meta b{color:var(--ink);font-weight:600}
+
+  /* Section */
+  section{margin-top:56px}
+  h2{font-size:14px;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);font-weight:700;padding-bottom:8px;border-bottom:1px solid var(--ink);margin-bottom:24px}
+
+  /* Discussion */
+  .discussion{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .card{background:#fff;border:1.5px solid var(--ink);padding:20px}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:0.1em;color:var(--orange);font-weight:800;margin-bottom:8px}
+  .card .role{font-size:11px;color:var(--steel);margin-bottom:12px}
+  .card p{font-size:13px;color:var(--ink);line-height:1.55}
+  .card.jobs{background:var(--ink);color:var(--cream)}
+  .card.jobs h3{color:var(--orange)}
+  .card.jobs .role,.card.jobs p{color:var(--cream)}
+
+  /* Variants grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+  .v{background:#fff;border:1.5px solid var(--ink);overflow:hidden;display:flex;flex-direction:column}
+  .v img{width:100%;display:block;background:var(--cream)}
+  .v .body{padding:16px 18px;border-top:1px solid var(--ink)}
+  .v .id{font-size:11px;letter-spacing:0.15em;color:var(--orange);font-weight:800}
+  .v .name{font-size:20px;font-weight:800;margin-top:4px}
+  .v .star{color:var(--orange);letter-spacing:1px;margin-top:6px;font-size:13px}
+  .v p{font-size:12px;color:var(--steel);margin-top:8px;line-height:1.5}
+  .v.hero{outline:3px solid var(--orange);outline-offset:-3px}
+
+  /* Recommendations */
+  .rec{background:#fff;border:1.5px solid var(--ink);padding:24px}
+  .rec table{width:100%;border-collapse:collapse;font-size:13px}
+  .rec th,.rec td{text-align:left;padding:8px 10px;border-bottom:1px solid #eee}
+  .rec th{font-size:11px;text-transform:uppercase;color:var(--steel);letter-spacing:0.1em}
+  .rec b{color:var(--orange)}
+
+  /* Footer */
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--ink);color:var(--steel);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer .wtf{font-family:"Hiragino Kaku Gothic StdN","Marker Felt",sans-serif;color:var(--red);font-weight:900;font-size:14px}
+</style>
+</head>
+<body>
+
+<!-- Password gate -->
+<div class="gate" id="gate">
+  <h1>ATSM<span class="dot">.</span>preview</h1>
+  <form id="gf" onsubmit="return chk(event)">
+    <input id="pw" type="password" autofocus autocomplete="off" placeholder="password">
+    <button>OPEN</button>
+  </form>
+  <div class="err" id="err"></div>
+  <p>private — for Atsume Dev internal review</p>
+</div>
+
+<!-- Content -->
+<header>
+  <div class="brand">ATSUME DEV INC. — INTERNAL</div>
+  <div class="title">Atsume Character<span class="dot">.</span></div>
+  <div class="subtitle">新生「あつめ」 — オフィシャルキャラクター案 / 10 バリエーション</div>
+  <div class="meta">
+    <span><b>Date</b> 2026-05-28</span>
+    <span><b>Decision</b> 経営陣7体+ジョブズ枠 議論結果反映</span>
+    <span><b>Engine</b> Gemini nano-banana (gemini-2.5-flash-image)</span>
+    <span><b>Status</b> Awaiting CEO decision</span>
+  </div>
+</header>
+
+<section>
+  <h2>議論サマリ — 全員合意した収束点</h2>
+  <ol style="font-size:14px;line-height:2;padding-left:24px">
+    <li>「あつめ君」廃止 + Cyber Kentaroh 視覚 5 要素同時は採用しない</li>
+    <li>ヘッドホン + オレンジ <code>#E84E1B</code> + cream + Ink黒 をブランド DNA に</li>
+    <li>属人化リスク回避 — 顔の同定性を意図的に下げる</li>
+    <li>完全自社フォントは NO-GO / Atsume Display 60 グリフ + 本文は Noto/Inter 借用</li>
+    <li>商標出願 3 区分 (9/35/42) を制作完了 30 日以内</li>
+    <li>第 1 期予算枠 <b>40 万円</b> (キャラ 5 + フォント 5 + 商標 25 + 予備 5)</li>
+    <li>多層運用 — 公式 / SNS / 裏ブランド (atsm.wtf) を分離</li>
+  </ol>
+</section>
+
+<section>
+  <h2>経営陣ペルソナ別 推し</h2>
+  <div class="discussion">
+    <div class="card"><h3>粟田 CEO</h3><div class="role">代表取締役 / 創業者</div><p>ヘッドホンと集中の表現だけ絶対残す。非人間一択。<b>V01 + V06</b>。会社は俺を超えて続くべきだ。</p></div>
+    <div class="card"><h3>濱田 CPO</h3><div class="role">元メルカリ CPO / 技術顧問</div><p>社長アバターと会社マスコットは分離した方が後で楽。<b>V08 + V05</b>。経営者が「自分の味方」と感じる視覚要素を。</p></div>
+    <div class="card"><h3>岩瀬 弁護士</h3><div class="role">英和法律事務所 / 73 期</div><p>Cyber Kentaroh の 5 要素同時模倣は避ける。AI 生成プロセスのログ保存、商標出願 30 日以内、粟田個人との使用許諾契約必須。<b>条件付き GO</b>。</p></div>
+    <div class="card"><h3>AI CMO</h3><div class="role">マーケ戦略</div><p>認知では立たせる、商談では引っ込める。<b>V06 + V09</b>。中規模企業経営者(40-60代)に幼稚と取られない抽象度を厳守。</p></div>
+    <div class="card"><h3>AI CDO</h3><div class="role">デザイン統括</div><p>Anthropic 土色 × Linear 構造の中間。<b>V05 + V10</b>。Atsume Display 60 グリフ + Geist/Inter + Noto Sans JP 借用。</p></div>
+    <div class="card"><h3>AI COO</h3><div class="role">オペレーション</div><p>運用月 3 時間が上限。12 点プリセット初期投資のみ。<b>V01 + V04</b>。動くキャラ / 自社フォント / 取引先自由配布は NO-GO。</p></div>
+    <div class="card"><h3>AI CFO</h3><div class="role">財務</div><p>第 1 期予算 40 万円が天井。完全自社フォント 200 万超は即停止。<b>V01 単独深掘り</b>が無形資産化最大化。</p></div>
+    <div class="card jobs"><h3>Steve Jobs (枠)</h3><div class="role">アドバイザー (霊)</div><p>マスコットなんか要らない。製品が顔だ。だが作るなら一つだけにしろ。<b>V10 一本</b>。Cyber Kentaroh は捨てろ。中途半端は禁止。</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>10 バリエーション</h2>
+  <div class="grid">
+    <div class="v hero"><img src="images/v01_base.png" alt="V01 Base"><div class="body"><div class="id">V01 — ★★★★★</div><div class="name">Base Atsume</div><div class="star">粟田 / COO / CFO 推し</div><p>M額 + ヘッドホン + 八角形 + 黒ボディ。新生アツメ君の本命。デフォルトポーズ。Slack/favicon/名刺に最適。</p></div></div>
+
+    <div class="v"><img src="images/v02_focused.png" alt="V02 Focused"><div class="body"><div class="id">V02 — ★★★★</div><div class="name">Focused</div><div class="star">親しみ路線</div><p>3点の集中マーク。ニコニコ目で親しみ↑。「考え中」演出に使える。</p></div></div>
+
+    <div class="v"><img src="images/v03_side_walk.png" alt="V03 Side"><div class="body"><div class="id">V03 — ★★★</div><div class="name">Side Walk</div><div class="star">動きあり</div><p>オクタゴンヘッドのまま脚あり。「前に進める」を体現。ただし人間体に近く違和感あり。要再検討。</p></div></div>
+
+    <div class="v"><img src="images/v04_sticker.png" alt="V04 Sticker"><div class="body"><div class="id">V04 — ★★★</div><div class="name">Sticker</div><div class="star">COO 推し</div><p>白フチ Die-cut。シルエット最強。Slack アバター / Twitter アイコン候補。</p></div></div>
+
+    <div class="v"><img src="images/v05_minimal_line.png" alt="V05 Line"><div class="body"><div class="id">V05 — ★★★★</div><div class="name">Minimal Line</div><div class="star">濱田 / CDO 推し</div><p>線画のみ Linear/Vercel 系。極限ミニマル。「気持ち」やや希薄だが資料スライドに最適。</p></div></div>
+
+    <div class="v hero"><img src="images/v06_filled.png" alt="V06 Filled"><div class="body"><div class="id">V06 — ★★★★★</div><div class="name">Filled (poster)</div><div class="star">粟田 / CMO 推し</div><p>オレンジ充填、Mが完全に主役。ヒーロー画像 / 封筒 / Tシャツ / LP メインビジュアル向け。</p></div></div>
+
+    <div class="v"><img src="images/v07_pixel_vector.png" alt="V07 Pixel"><div class="body"><div class="id">V07 — ★★★★</div><div class="name">Pixel-Vector Hybrid</div><div class="star">Cyber 精神継承</div><p>Teenage Engineering 感。Cyber Kentaroh の DNA をベクター昇格。SNS / Tシャツ向き。</p></div></div>
+
+    <div class="v"><img src="images/v08_working.png" alt="V08 Working"><div class="body"><div class="id">V08 — ★★★★</div><div class="name">Working</div><div class="star">濱田 推し</div><p>道具持ち + ノート。Craft 事業の象徴に最適。「職人」「弟子」のメタファー。</p></div></div>
+
+    <div class="v"><img src="images/v09_group_three.png" alt="V09 Group"><div class="body"><div class="id">V09 — ★★★</div><div class="name">Group of Three</div><div class="star">CMO 推し</div><p>"集める" のコンセプト体現。3 表情の差分にも使える。コーポレートサイト下部のセクション素材に。</p></div></div>
+
+    <div class="v hero"><img src="images/v10_monogram.png" alt="V10 Monogram"><div class="body"><div class="id">V10 — ★★★★★</div><div class="name">Monogram (M字一体)</div><div class="star">CDO / Jobs 推し</div><p>Stripe S / Notion N 系。ロゴと完全融合。退化耐性が最も高い。ブランド資産として最強。</p></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>収束候補と次の一手</h2>
+  <div class="rec">
+    <p style="margin-bottom:16px;font-size:14px"><b>俺の見立て:</b> <b style="color:var(--orange)">V01 を「キャラ」、V10 を「ロゴ補強」として併用</b>。Stripe が S アイコンとロゴを別ファイルで運用するのと同じ。V06 はポスター用に第3軸として確保。</p>
+    <table>
+      <tr><th>選択肢</th><th>戦略</th><th>次アクション</th></tr>
+      <tr><td><b>A</b></td><td>V01 単独深掘り</td><td>V01 だけ 10 バリ追加 (表情/ポーズ/色)</td></tr>
+      <tr><td><b>B</b></td><td>V01 + V10 両輪</td><td>各 5 バリ深掘り (計 10 枚追加)</td></tr>
+      <tr><td><b>C</b></td><td>V10 一本 (Jobs 派)</td><td>V10 だけ 10 バリ + フォント拡張連動</td></tr>
+      <tr><td><b>D</b></td><td>保留・整理に戻る</td><td>フォント設計と商標出願準備に着手</td></tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 ATSUME Dev Inc. — Internal preview</div>
+  <div><span class="wtf">atsm.wtf</span></div>
+</footer>
+
+<script>
+  // Client-side gate (not real security — gentle URL gate)
+  const HASH = "150a7f114f74fba22e4057f650d0718d4656b340f314657c6167003a7a80e7a1";
+  async function sha256(s){
+    const buf = new TextEncoder().encode(s);
+    const h = await crypto.subtle.digest("SHA-256", buf);
+    return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,"0")).join("");
+  }
+  async function chk(e){
+    e.preventDefault();
+    const v = document.getElementById("pw").value.trim();
+    const h = await sha256(v);
+    if(h===HASH){
+      sessionStorage.setItem("atsm-ok","1");
+      document.getElementById("gate").classList.add("hidden");
+    } else {
+      document.getElementById("err").textContent="× nope";
+    }
+    return false;
+  }
+  if(sessionStorage.getItem("atsm-ok")==="1"){
+    document.getElementById("gate").classList.add("hidden");
+  }
+</script>
+</body>
+</html>
