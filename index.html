@@ -85,6 +85,20 @@
   .concept-quote{margin-top:64px;padding:40px;border-left:4px solid var(--orange);font-size:24px;font-weight:600;line-height:1.5;font-style:italic;max-width:900px}
   .concept-quote::before{content:"〝";color:var(--orange);font-size:48px;float:left;margin-right:8px;line-height:1;margin-top:-8px}
 
+  /* ========== Wave 3 pair ========== */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+  .pair-card{background:#fff;border:1.5px solid var(--ink);overflow:hidden;display:flex;flex-direction:column;transition:all 0.4s cubic-bezier(0.2,0.8,0.2,1)}
+  .pair-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(10,10,10,0.15)}
+  .pair-card.hot{outline:3px solid var(--orange);outline-offset:-3px}
+  .pair-img{aspect-ratio:4/3;background:var(--cream);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .pair-img img{width:100%;height:100%;object-fit:contain;transition:transform 0.5s cubic-bezier(0.2,0.8,0.2,1)}
+  .pair-card:hover .pair-img img{transform:scale(1.05)}
+  .pair-cap{padding:28px 32px 32px;border-top:1.5px solid var(--ink)}
+  .pair-role{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);font-weight:800;margin-bottom:8px}
+  .pair-cap h3{font-size:30px;font-weight:900;letter-spacing:-0.02em;line-height:1;margin-bottom:10px}
+  .pair-cap p{font-size:14px;color:var(--steel);line-height:1.6}
+  @media (max-width:720px){.pair{grid-template-columns:1fr}}
+
   /* ========== Wave 2 (the new 10) ========== */
   .w2 .h2 em{font-style:normal;color:var(--orange)}
   .w-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:24px}
@@ -191,12 +205,12 @@
   <div class="flame"></div>
   <h1>囲<span class="dot">む</span>場所<span class="dot">、</span></h1>
   <div class="tagline">はじめる。</div>
-  <div class="tagline-jp">10 paths to the brand we'll set fire to.</div>
+  <div class="tagline-jp">ケニーと、火を扱う相棒の物語。</div>
   <div class="meta">
     <span><b>Concept</b> 火を囲む</span>
     <span><b>Engine</b> nano-banana</span>
-    <span><b>Directions</b> 10</span>
-    <span><b>Status</b> 経営陣判断待ち</span>
+    <span><b>本命</b> Wave 3 — 相棒</span>
+    <span><b>Status</b> レビュー募集中</span>
   </div>
 </section>
 
@@ -216,11 +230,57 @@
   </div>
 </div>
 
+<!-- ========== WAVE 3 — Kenny & Companion (本命) ========== -->
+<section class="w2 w3">
+  <div class="label fade">Wave 3 — ★ 本命 / ケニー & 相棒</div>
+  <h2 class="h2 fade">相棒は、火を扱う<em>謎の生命体</em><span class="dot">.</span></h2>
+  <p class="lead fade">ケニー（ファウンダー）の隣にいる、人間でも動物でもない、何かしらの生命体。これがアツメ開発の<b style="color:var(--ink)">ロゴでありマスコット</b>。最初の八角形ヘッドホン路線を「相棒」として昇華させた。</p>
+
+  <div class="pair fade">
+    <div class="pair-card">
+      <div class="pair-img"><img src="wave3/kenny_bust.png" alt="Kenny"></div>
+      <div class="pair-cap"><div class="pair-role">Founder — 本人キャラ</div><h3>ケニー / Cyber Kentaroh</h3><p>炎・サイバー・武道。元のゴテゴテを削ぎ、スリムバイザー + 橙ヘッドホンで premium に洗練。会社の人格。</p></div>
+    </div>
+    <div class="pair-card hot">
+      <div class="pair-img"><img src="wave3/companion_hero.png" alt="Companion"></div>
+      <div class="pair-cap"><div class="pair-role">Logo / Mascot — 相棒</div><h3>相棒（名前未定）</h3><p>浮遊する謎の生命体。ヘッドホンを着け、火を手に持って微笑む。人間でも動物でもない、火を扱う何か。アツメ開発の顔。</p></div>
+    </div>
+  </div>
+
+  <div class="label fade" style="margin-top:72px">相棒 — バリエーション</div>
+  <div class="w-grid">
+    <div class="w-card fade"><div class="img"><img src="wave3/companion_hero.png" alt=""></div><div class="num">★本命</div><div class="body"><h3>HERO</h3><div class="name-jp">浮遊 + 火を持つ + 笑顔</div><div class="hook">全部入りの相棒。</div><div class="desc">浮く黒い生命体がヘッドホンを着け、火を手に持って微笑む。可愛い・神秘・火を扱う。マスコットの中心。</div><div class="tags"><span class="tag hot">マスコット</span><span class="tag">浮遊</span><span class="tag">火</span></div></div></div>
+
+    <div class="w-card fade"><div class="img"><img src="wave3/companion_logo.png" alt=""></div><div class="num">LOGO</div><div class="body"><h3>SILHOUETTE</h3><div class="name-jp">クリーン+胸に火</div><div class="hook">ロゴ用の純化形。</div><div class="desc">solid ink シルエット、胸に火の心臓。16px favicon から大判まで効く。ロゴ運用の本線。</div><div class="tags"><span class="tag hot">ロゴ</span><span class="tag">favicon</span></div></div></div>
+
+    <div class="w-card fade"><div class="img"><img src="wave3/companion_spirit.png" alt=""></div><div class="num">A1</div><div class="body"><h3>SPIRIT</h3><div class="name-jp">頭上に火 + 下半身が炎</div><div class="hook">火の精霊バージョン。</div><div class="desc">八角形顔、頭上にパイロットライト、下半身が炎化。デザイン力が強く、神秘性が高い。</div><div class="tags"><span class="tag">精霊</span><span class="tag">神秘</span></div></div></div>
+
+    <div class="w-card fade"><div class="img"><img src="wave3/companion_flame.png" alt=""></div><div class="num">A2</div><div class="body"><h3>CANDLE</h3><div class="name-jp">炎に溶ける下半身</div><div class="hook">生きたろうそくの火。</div><div class="desc">八角形頭+ヘッドホンの上半身、下半身は揺れる炎に溶ける。半分生命体・半分火。</div><div class="tags"><span class="tag">炎化</span><span class="tag">幻想</span></div></div></div>
+
+    <div class="w-card fade"><div class="img"><img src="wave3/companion_pet.png" alt=""></div><div class="num">A3</div><div class="body"><h3>WITH PET</h3><div class="name-jp">小さな火を連れる</div><div class="hook">相棒の、相棒。</div><div class="desc">クリーンシルエットの生命体が、小さな火の玉を連れて浮く。物語が膨らむ、愛嬌のある構図。</div><div class="tags"><span class="tag">物語</span><span class="tag">愛嬌</span></div></div></div>
+
+    <div class="w-card fade"><div class="img"><img src="wave3/companion_fire.png" alt=""></div><div class="num">A4</div><div class="body"><h3>BY THE FIRE</h3><div class="name-jp">焚き火を囲んで座る</div><div class="hook">囲む場所、そのもの。</div><div class="desc">相棒が小さな焚き火の前に座り、火を見つめる。「囲む場所」コンセプトを最も直接に語る。</div><div class="tags"><span class="tag hot">囲む場所</span><span class="tag">物語</span></div></div></div>
+
+    <div class="w-card fade"><div class="img"><img src="wave3/companion_float.png" alt=""></div><div class="num">A5</div><div class="body"><h3>ORANGE FLOAT</h3><div class="name-jp">橙の顔 + 浮遊</div><div class="hook">明るい昼の相棒。</div><div class="desc">橙の八角形顔が浮遊。黒シルエット案の昼バージョン。明るく親しみやすい印象。</div><div class="tags"><span class="tag">浮遊</span><span class="tag">親しみ</span></div></div></div>
+  </div>
+
+  <div class="label fade" style="margin-top:72px">ケニー — スマート版</div>
+  <div class="w-grid">
+    <div class="w-card fade"><div class="img"><img src="wave3/kenny_bust.png" alt=""></div><div class="num">★</div><div class="body"><h3>BUST</h3><div class="name-jp">バストアップ決定版</div><div class="hook">洗練の到達点。</div><div class="desc">スリムバイザー、橙ヘッドホン、抑えた炎ヘア。元のゴテゴテが消えて premium に。ケニー公式。</div><div class="tags"><span class="tag hot">公式</span><span class="tag">premium</span></div></div></div>
+
+    <div class="w-card fade"><div class="img"><img src="wave3/kenny_stand.png" alt=""></div><div class="num">K1</div><div class="body"><h3>STAND</h3><div class="name-jp">立ち全身</div><div class="hook">大人等身で成立。</div><div class="desc">バストアップと同質感の全身。スタイリッシュな大人プロポーション。資料・LP のキャラ立ち絵に。</div><div class="tags"><span class="tag">全身</span><span class="tag">立ち絵</span></div></div></div>
+
+    <div class="w-card fade"><div class="img"><img src="wave3/kenny_ready.png" alt=""></div><div class="num">K2</div><div class="body"><h3>READY</h3><div class="name-jp">構えポーズ + 橙帯</div><div class="hook">柔術家の気合。</div><div class="desc">構えの動的ポーズ、橙の帯。武道×サイバーの core を一番強く出す。動きのある場面に。</div><div class="tags"><span class="tag">武道</span><span class="tag">動的</span></div></div></div>
+
+    <div class="w-card fade"><div class="img"><img src="wave3/kenny_duo.png" alt=""></div><div class="num">K3</div><div class="body"><h3>DUO</h3><div class="name-jp">ケニー + 相棒</div><div class="hook">チームの関係性。</div><div class="desc">ケニーと相棒が並ぶ。サイズ比と関係性が一目で伝わる。「ファウンダーと相棒」の設定資料。</div><div class="tags"><span class="tag hot">関係性</span><span class="tag">設定</span></div></div></div>
+  </div>
+</section>
+
 <!-- ========== WAVE 2 — 10 directions ========== -->
 <section class="w2">
-  <div class="label fade">Wave 2 — 10 directions</div>
-  <h2 class="h2 fade">これだ、と<em>言える</em> 10 個<span class="dot">.</span></h2>
-  <p class="lead fade">場所として / 記号として / 紋章として / 群衆として / 武道として / 起業の瞬間として / コード文字として / 障子越しの気配として / 散る火として / 禅の円として。<br>全部、方向性が違う。全部、囲む場所のかたち。</p>
+  <div class="label fade">Wave 2 — 探索の記録 / 10 directions</div>
+  <h2 class="h2 fade">抽象路線の<em>探索</em><span class="dot">.</span></h2>
+  <p class="lead fade">本命が「相棒」に決まる前に探った、方向性が全部違う 10 案。場所 / 記号 / 紋章 / 群衆 / 武道 / 起業 / コード / 障子 / 蛍火 / 禅。ロゴ・サブグラフィックの素材源として残す。</p>
 
   <div class="w-grid">
 
