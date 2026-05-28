@@ -38,20 +38,33 @@ Claude Code 開いたら、こう投げて:
 | `prompts/_common.txt` + `v01-v10.txt` | 各案の生成プロンプト原文 |
 | `Dockerfile` / `fly.toml` / `nginx.conf` | Fly.io 静的配信 |
 
-## 10 案の概要
+## コンセプト —「囲む場所」
+
+ATSUME = 集める = 人が**囲む**こと。囲炉裏のように、火を中心に人が集まる場所。
+- 八角形 = 囲炉裏のかたち / オレンジ #E84E1B = 火の色 / cream #F5EFE0 = 漆喰・畳 / ヘッドホン = 集中を囲むかたち
+
+## Wave 2 — これだ、と言える 10 方向（メイン）
+
+全部、方向性が違う。全部、囲む場所のかたち。
 
 | # | 名前 | キーアイデア |
 |---|---|---|
-| V01 | Base Atsume | 八角形頭 + M額 + ヘッドホン、デフォルトの立ち姿 |
-| V02 | Focused | 集中の 3 ドット、親しみ寄り |
-| V03 | Side Walk | 横向き歩行、動きの表現 |
-| V04 | Sticker | 白フチ Die-cut、SNS アバター向け |
-| V05 | Minimal Line | 線画のみ、Linear/Vercel 系 |
-| V06 | Filled (poster) | オレンジ充填、LP ヒーロー向け |
-| V07 | Pixel-Vector | レトロ感をベクター昇格 |
-| V08 | Working | 道具持ち、Craft 事業象徴 |
-| V09 | Group of Three | "集める" を 3 体で表現 |
-| V10 | Monogram | M 字とキャラ一体、Stripe S / Notion N 系 |
+| W01 | IRORI | 囲炉裏を真上から。場所をブランドにする |
+| W02 | HI | 一筆書きの炎ひとつ。最小・最強のアイコン |
+| W03 | GOTOKU | 五徳の家紋化。和モダンの紋章 |
+| W04 | WA | 火を囲む 8 人。"集める" の物語 |
+| W05 | HACHIMAKI | 顔のない鉢巻き。決意の純化 |
+| W06 | HIUCHI | 火打石の火花。起業の瞬間 |
+| W07 | `:\|:` | ヘッドホン= ASCII 文字。テック文化 |
+| W08 | SHOJI | 障子越しの人影。気配としての存在 |
+| W09 | HOTARU | 蛍火の星座。散る火が集まる |
+| W10 | ENSO | 墨の円+火。禅と起業 |
+
+`wave2/w01_irori.png` 〜 `wave2/w10_enso.png`
+
+## Wave 1 — archive（最初の方向性）
+
+八角形+ヘッドホンのキャラ路線 V01-V10 は `images/` に保管。
 
 ## 引き継ぎたい「気持ち」と捨てるもの
 

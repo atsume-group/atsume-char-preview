@@ -3,213 +3,446 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Atsume Character Preview — 2026-05-28</title>
+<meta name="robots" content="noindex,nofollow,nosnippet,noarchive">
+<title>Atsume — 囲む場所、はじめる。</title>
 <style>
   :root{
     --cream:#F5EFE0;
+    --cream-deep:#EDE5D0;
+    --paper:#FBF7EE;
     --ink:#0A0A0A;
+    --ink-soft:#1F1B16;
     --orange:#E84E1B;
+    --ember:#FF6A3D;
     --red:#E63329;
     --steel:#6B7280;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Kaku Gothic ProN",sans-serif;line-height:1.6}
-  body{padding:48px 24px 96px;max-width:1240px;margin:0 auto}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  html{scroll-behavior:smooth}
+  body{background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue","Hiragino Kaku Gothic ProN",sans-serif;line-height:1.6;overflow-x:hidden}
 
-  /* Gate */
-  .gate{position:fixed;inset:0;background:var(--cream);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;z-index:100}
+  /* ========== Password Gate ========== */
+  .gate{position:fixed;inset:0;background:var(--cream);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:32px;z-index:1000}
   .gate.hidden{display:none}
-  .gate h1{font-size:48px;font-weight:900;letter-spacing:-0.02em}
-  .gate h1 .dot{color:var(--orange)}
-  .gate p{color:var(--steel);font-size:14px}
-  .gate form{display:flex;gap:8px}
-  .gate input{padding:14px 18px;font-size:18px;border:2px solid var(--ink);background:var(--cream);color:var(--ink);outline:none;border-radius:0;width:240px}
-  .gate input:focus{border-color:var(--orange)}
-  .gate button{padding:14px 24px;background:var(--ink);color:var(--cream);border:0;font-size:18px;font-weight:700;cursor:pointer}
+  .gate .flame-tiny{width:80px;height:120px;position:relative}
+  .gate .flame-tiny::before{content:"";position:absolute;inset:20px 15px 0;background:var(--orange);clip-path:polygon(50% 0%,80% 30%,100% 65%,75% 100%,25% 100%,0% 65%,20% 30%);animation:flicker 2.4s ease-in-out infinite}
+  .gate h1{font-size:64px;font-weight:900;letter-spacing:-0.04em;line-height:0.9}
+  .gate h1 span{color:var(--orange)}
+  .gate form{display:flex;gap:0;border:2px solid var(--ink)}
+  .gate input{padding:18px 22px;font-size:18px;border:0;background:var(--cream);color:var(--ink);outline:none;width:280px;font-family:inherit}
+  .gate input:focus{background:#fff}
+  .gate button{padding:18px 28px;background:var(--ink);color:var(--cream);border:0;font-size:18px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:0.05em}
   .gate button:hover{background:var(--orange)}
-  .gate .err{color:var(--red);font-size:13px;height:16px}
+  .gate .err{color:var(--red);font-size:13px;height:16px;font-weight:600}
+  .gate .hint{color:var(--steel);font-size:13px;letter-spacing:0.1em;text-transform:uppercase}
 
-  /* Header */
-  header{margin-bottom:48px}
-  .brand{font-size:14px;color:var(--steel);letter-spacing:0.1em;text-transform:uppercase}
-  .title{font-size:64px;font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-top:4px}
-  .title .dot{color:var(--orange)}
-  .subtitle{color:var(--steel);font-size:15px;margin-top:12px}
-  .meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:24px;font-size:13px;color:var(--steel)}
-  .meta b{color:var(--ink);font-weight:600}
+  /* ========== Hero ========== */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:80px 24px;position:relative;overflow:hidden;text-align:center}
+  .hero .nav{position:absolute;top:32px;left:0;right:0;display:flex;justify-content:space-between;padding:0 32px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--steel)}
+  .hero .brand{font-weight:800;color:var(--ink)}
+  .hero h1{font-size:clamp(72px,14vw,200px);font-weight:900;letter-spacing:-0.05em;line-height:0.85;margin-bottom:24px}
+  .hero h1 .dot{color:var(--orange)}
+  .hero .tagline{font-size:clamp(22px,3vw,36px);font-weight:700;letter-spacing:-0.01em;margin-bottom:8px}
+  .hero .tagline-jp{font-size:clamp(16px,2vw,24px);color:var(--steel);font-weight:500;letter-spacing:0.05em;margin-bottom:48px}
+  .hero .meta{display:flex;gap:32px;flex-wrap:wrap;justify-content:center;font-size:12px;color:var(--steel);letter-spacing:0.1em;text-transform:uppercase}
+  .hero .meta b{color:var(--ink);font-weight:700;margin-right:4px}
 
-  /* Section */
-  section{margin-top:56px}
-  h2{font-size:14px;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);font-weight:700;padding-bottom:8px;border-bottom:1px solid var(--ink);margin-bottom:24px}
+  /* Big flame animation */
+  .flame{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;pointer-events:none;z-index:-1;opacity:0.06}
+  .flame::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 60%,var(--orange) 0%,var(--orange) 25%,transparent 60%);animation:pulse 4s ease-in-out infinite}
 
-  /* Discussion */
-  .discussion{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-  .card{background:#fff;border:1.5px solid var(--ink);padding:18px;display:flex;gap:14px;align-items:flex-start}
-  .card .av{width:72px;height:72px;flex-shrink:0;border:1px solid var(--ink);background:var(--cream);overflow:hidden}
-  .card .av img{width:100%;height:100%;display:block;object-fit:cover}
-  .card .text{flex:1;min-width:0}
-  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:0.1em;color:var(--orange);font-weight:800;margin-bottom:4px}
-  .card .role{font-size:11px;color:var(--steel);margin-bottom:10px}
-  .card p{font-size:13px;color:var(--ink);line-height:1.55}
-  .card.jobs{background:var(--ink);color:var(--cream)}
-  .card.jobs .av{border-color:var(--cream)}
-  .card.jobs h3{color:var(--orange)}
-  .card.jobs .role,.card.jobs p{color:var(--cream)}
+  @keyframes flicker{
+    0%,100%{transform:scaleY(1) scaleX(1)}
+    50%{transform:scaleY(1.08) scaleX(0.96)}
+  }
+  @keyframes pulse{
+    0%,100%{transform:scale(1);opacity:0.06}
+    50%{transform:scale(1.15);opacity:0.10}
+  }
 
-  /* Variants grid */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-  .v{background:#fff;border:1.5px solid var(--ink);overflow:hidden;display:flex;flex-direction:column}
-  .v img{width:100%;display:block;background:var(--cream)}
-  .v .body{padding:16px 18px;border-top:1px solid var(--ink)}
-  .v .id{font-size:11px;letter-spacing:0.15em;color:var(--orange);font-weight:800}
-  .v .name{font-size:20px;font-weight:800;margin-top:4px}
-  .v .star{color:var(--orange);letter-spacing:1px;margin-top:6px;font-size:13px}
-  .v p{font-size:12px;color:var(--steel);margin-top:8px;line-height:1.5}
-  .v.hero{outline:3px solid var(--orange);outline-offset:-3px}
+  /* ========== Section common ========== */
+  section{max-width:1320px;margin:0 auto;padding:120px 32px}
+  .label{font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--orange);font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+  .label::before{content:"";display:inline-block;width:24px;height:1px;background:var(--orange)}
+  .h2{font-size:clamp(40px,6vw,80px);font-weight:900;letter-spacing:-0.03em;line-height:1;margin-bottom:24px}
+  .h2 .dot{color:var(--orange)}
+  .lead{font-size:clamp(18px,2vw,24px);color:var(--ink);max-width:780px;margin-bottom:64px;line-height:1.5;font-weight:500}
 
-  /* Recommendations */
-  .rec{background:#fff;border:1.5px solid var(--ink);padding:24px}
-  .rec table{width:100%;border-collapse:collapse;font-size:13px}
-  .rec th,.rec td{text-align:left;padding:8px 10px;border-bottom:1px solid #eee}
-  .rec th{font-size:11px;text-transform:uppercase;color:var(--steel);letter-spacing:0.1em}
-  .rec b{color:var(--orange)}
+  /* ========== Concept ========== */
+  .concept{background:var(--ink);color:var(--cream)}
+  .concept-inner{max-width:1320px;margin:0 auto;padding:120px 32px}
+  .concept .label{color:var(--ember)}
+  .concept .label::before{background:var(--ember)}
+  .concept .h2{color:var(--cream)}
+  .concept .h2 .dot{color:var(--orange)}
+  .concept .lead{color:var(--cream);opacity:0.85}
+  .concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:64px}
+  .concept-grid .item{padding:32px;background:rgba(255,255,255,0.04);border:1px solid rgba(245,239,224,0.15);transition:all 0.3s ease}
+  .concept-grid .item:hover{background:rgba(232,78,27,0.1);border-color:var(--orange);transform:translateY(-4px)}
+  .concept-grid .label-sm{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);font-weight:800;margin-bottom:8px}
+  .concept-grid .v{font-size:28px;font-weight:900;letter-spacing:-0.02em;margin-bottom:4px}
+  .concept-grid .d{font-size:13px;color:var(--cream);opacity:0.7}
+  .concept-quote{margin-top:64px;padding:40px;border-left:4px solid var(--orange);font-size:24px;font-weight:600;line-height:1.5;font-style:italic;max-width:900px}
+  .concept-quote::before{content:"〝";color:var(--orange);font-size:48px;float:left;margin-right:8px;line-height:1;margin-top:-8px}
 
-  /* Footer */
-  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--ink);color:var(--steel);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-  footer .wtf{font-family:"Hiragino Kaku Gothic StdN","Marker Felt",sans-serif;color:var(--red);font-weight:900;font-size:14px}
+  /* ========== Wave 2 (the new 10) ========== */
+  .w2 .h2 em{font-style:normal;color:var(--orange)}
+  .w-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:24px}
+  .w-card{background:#fff;border:1.5px solid var(--ink);overflow:hidden;display:flex;flex-direction:column;transition:all 0.4s cubic-bezier(0.2,0.8,0.2,1);position:relative;cursor:pointer}
+  .w-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(10,10,10,0.15)}
+  .w-card .img{aspect-ratio:1/1;background:var(--cream);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+  .w-card .img img{width:100%;height:100%;object-fit:contain;transition:transform 0.5s cubic-bezier(0.2,0.8,0.2,1)}
+  .w-card:hover .img img{transform:scale(1.06)}
+  .w-card .num{position:absolute;top:16px;left:18px;font-size:14px;font-weight:900;color:var(--orange);letter-spacing:0.1em}
+  .w-card .body{padding:28px 28px 32px;border-top:1.5px solid var(--ink)}
+  .w-card h3{font-size:32px;font-weight:900;letter-spacing:-0.02em;line-height:1;margin-bottom:6px}
+  .w-card .name-jp{font-size:13px;color:var(--steel);letter-spacing:0.05em;margin-bottom:14px;font-weight:500}
+  .w-card .hook{font-size:18px;font-weight:700;line-height:1.4;margin-bottom:12px;color:var(--ink)}
+  .w-card .desc{font-size:13px;color:var(--steel);line-height:1.6;margin-bottom:16px}
+  .w-card .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .w-card .tag{font-size:10px;padding:4px 10px;border:1px solid var(--ink);color:var(--ink);letter-spacing:0.08em;text-transform:uppercase;font-weight:600}
+  .w-card .tag.hot{background:var(--orange);border-color:var(--orange);color:#fff}
+
+  /* ========== Discussion ========== */
+  .disc-bg{background:var(--paper)}
+  .disc-inner{max-width:1320px;margin:0 auto;padding:120px 32px}
+  .disc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+  .disc-card{background:#fff;border:1.5px solid var(--ink);padding:20px;display:flex;gap:14px;align-items:flex-start;transition:transform 0.25s ease}
+  .disc-card:hover{transform:translateY(-3px);background:#fff}
+  .disc-av{width:72px;height:72px;flex-shrink:0;border:1px solid var(--ink);background:var(--cream);overflow:hidden}
+  .disc-av img{width:100%;height:100%;display:block;object-fit:cover}
+  .disc-text{flex:1;min-width:0}
+  .disc-card h3{font-size:14px;font-weight:900;letter-spacing:0.02em;color:var(--ink);margin-bottom:2px;text-transform:uppercase}
+  .disc-card .role{font-size:11px;color:var(--orange);font-weight:700;letter-spacing:0.08em;margin-bottom:10px;text-transform:uppercase}
+  .disc-card p{font-size:12.5px;line-height:1.55;color:var(--ink-soft)}
+  .disc-card.fund{background:linear-gradient(135deg,var(--cream) 0%,#fff 100%)}
+  .disc-card.fund .role{color:var(--ember)}
+  .disc-card.jobs{background:var(--ink);color:var(--cream)}
+  .disc-card.jobs .disc-av{border-color:var(--cream)}
+  .disc-card.jobs h3,.disc-card.jobs p{color:var(--cream)}
+  .disc-card.jobs .role{color:var(--orange)}
+
+  /* ========== Wave 1 archive ========== */
+  .w1{padding-top:0}
+  .w1-header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:48px}
+  .w1-header .h2-sm{font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-0.02em;line-height:1}
+  .w1-header .meta-sm{font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.15em;font-weight:600}
+  .v-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+  .v-card{background:#fff;border:1px solid var(--ink);overflow:hidden}
+  .v-card img{width:100%;display:block}
+  .v-card .v-body{padding:12px 14px;border-top:1px solid var(--ink);font-size:11px}
+  .v-card .v-id{color:var(--orange);font-weight:800;letter-spacing:0.1em}
+  .v-card .v-name{font-weight:700;margin-top:2px;font-size:13px}
+
+  /* ========== How to help ========== */
+  .help-bg{background:var(--ink);color:var(--cream)}
+  .help-inner{max-width:1320px;margin:0 auto;padding:120px 32px;text-align:center}
+  .help-inner .h2{color:var(--cream)}
+  .help-inner .h2 em{font-style:normal;color:var(--orange)}
+  .help-inner .lead{color:var(--cream);opacity:0.85;margin:0 auto 56px;max-width:720px}
+  .help-cmds{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:880px;margin:0 auto 48px;text-align:left}
+  .help-cmds .cmd{padding:24px;background:rgba(255,255,255,0.06);border:1px solid rgba(245,239,224,0.2);font-family:"SF Mono","JetBrains Mono",Menlo,monospace;font-size:13px}
+  .help-cmds .cmd .step{display:block;font-size:10px;color:var(--orange);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;font-weight:800;font-family:-apple-system,sans-serif}
+  .help-cmds .cmd code{color:var(--cream);display:block;word-break:break-all}
+  .help-cmds .cmd code .c{color:var(--ember)}
+  .help-cta{display:inline-flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center}
+  .btn{padding:18px 32px;background:var(--orange);color:#fff;border:0;font-size:15px;font-weight:800;cursor:pointer;text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;transition:all 0.25s ease;display:inline-block}
+  .btn:hover{background:var(--ember);transform:translateY(-2px)}
+  .btn.ghost{background:transparent;border:2px solid var(--cream);color:var(--cream)}
+  .btn.ghost:hover{background:var(--cream);color:var(--ink)}
+
+  /* ========== Footer ========== */
+  footer{padding:48px 32px;text-align:center;font-size:12px;color:var(--steel);letter-spacing:0.1em;text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;max-width:1320px;margin:0 auto;border-top:1px solid var(--ink)}
+  footer .wtf{font-family:"Hiragino Kaku Gothic StdN","Marker Felt",sans-serif;color:var(--red);font-weight:900;font-size:14px;letter-spacing:0;text-transform:none}
+
+  /* fade-in on scroll */
+  .fade{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease}
+  .fade.in{opacity:1;transform:translateY(0)}
+
+  /* responsive */
+  @media (max-width:640px){
+    section{padding:80px 20px}
+    .hero{padding:60px 20px}
+    .hero .nav{padding:0 20px}
+    .concept-inner,.disc-inner,.help-inner{padding:80px 20px}
+  }
 </style>
 </head>
 <body>
 
-<!-- Password gate -->
+<!-- ========== GATE ========== -->
 <div class="gate" id="gate">
-  <h1>ATSM<span class="dot">.</span>preview</h1>
+  <div class="flame-tiny"></div>
+  <h1>Atsume<span class="dot">.</span></h1>
   <form id="gf" onsubmit="return chk(event)">
     <input id="pw" type="password" autofocus autocomplete="off" placeholder="password">
     <button>OPEN</button>
   </form>
   <div class="err" id="err"></div>
-  <p>private — for Atsume Dev internal review</p>
+  <div class="hint">private preview — atsume dev internal</div>
 </div>
 
-<!-- Content -->
-<header>
-  <div class="brand">ATSUME DEV INC. — INTERNAL</div>
-  <div class="title">Atsume Character<span class="dot">.</span></div>
-  <div class="subtitle">新生「あつめ」 — オフィシャルキャラクター案 / 10 バリエーション</div>
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="nav">
+    <div class="brand">ATSUME DEV INC.</div>
+    <div>2026.05.28 — internal preview</div>
+  </div>
+  <div class="flame"></div>
+  <h1>囲<span class="dot">む</span>場所<span class="dot">、</span></h1>
+  <div class="tagline">はじめる。</div>
+  <div class="tagline-jp">10 paths to the brand we'll set fire to.</div>
   <div class="meta">
-    <span><b>Date</b> 2026-05-28</span>
-    <span><b>Decision</b> 経営陣7体+ジョブズ枠 議論結果反映</span>
-    <span><b>Engine</b> Gemini nano-banana (gemini-2.5-flash-image)</span>
-    <span><b>Status</b> Awaiting CEO decision</span>
+    <span><b>Concept</b> 火を囲む</span>
+    <span><b>Engine</b> nano-banana</span>
+    <span><b>Directions</b> 10</span>
+    <span><b>Status</b> 経営陣判断待ち</span>
   </div>
-</header>
+</section>
 
-<section>
-  <h2>コンセプト —「囲む場所」</h2>
-  <div style="background:#fff;border:1.5px solid var(--ink);padding:28px 32px">
-    <p style="font-size:18px;line-height:1.7;font-weight:600">ATSUME = 集める = 人が <b style="color:var(--orange)">囲む</b> こと。<br>囲炉裏のように、火を中心に人が集まる場所。</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:24px;font-size:13px;line-height:1.6">
-      <div><b style="color:var(--orange)">八角形</b><br>囲炉裏のかたち</div>
-      <div><b style="color:var(--orange)">オレンジ #E84E1B</b><br>火の色</div>
-      <div><b style="color:var(--orange)">cream #F5EFE0</b><br>漆喰・畳の温度</div>
-      <div><b style="color:var(--orange)">ヘッドホン</b><br>集中を囲むかたち</div>
+<!-- ========== CONCEPT ========== -->
+<div class="concept">
+  <div class="concept-inner">
+    <div class="label fade">The core concept</div>
+    <h2 class="h2 fade">「囲む場所<span class="dot">」</span></h2>
+    <p class="lead fade">ATSUME とは、集めること。<br>人が火を囲んで座る、囲炉裏の周りのような場所。<br>挑戦者の隣に、技術と人と火がある。</p>
+    <div class="concept-grid">
+      <div class="item fade"><div class="label-sm">Form</div><div class="v">八角形</div><div class="d">囲炉裏のかたち</div></div>
+      <div class="item fade"><div class="label-sm">Color</div><div class="v">#E84E1B</div><div class="d">火の色</div></div>
+      <div class="item fade"><div class="label-sm">Ground</div><div class="v">#F5EFE0</div><div class="d">漆喰・畳の温度</div></div>
+      <div class="item fade"><div class="label-sm">Gesture</div><div class="v">Headphones</div><div class="d">集中を囲むかたち</div></div>
     </div>
-    <p style="margin-top:24px;font-size:14px;color:var(--steel);font-style:italic">挑戦者が火を囲んで、技術と人で前に進める場所。</p>
+    <div class="concept-quote fade">挑戦者が火を囲んで、技術と人で前に進める場所。それが ATSUME。</div>
+  </div>
+</div>
+
+<!-- ========== WAVE 2 — 10 directions ========== -->
+<section class="w2">
+  <div class="label fade">Wave 2 — 10 directions</div>
+  <h2 class="h2 fade">これだ、と<em>言える</em> 10 個<span class="dot">.</span></h2>
+  <p class="lead fade">場所として / 記号として / 紋章として / 群衆として / 武道として / 起業の瞬間として / コード文字として / 障子越しの気配として / 散る火として / 禅の円として。<br>全部、方向性が違う。全部、囲む場所のかたち。</p>
+
+  <div class="w-grid">
+
+    <div class="w-card fade">
+      <div class="img"><img src="wave2/w01_irori.png" alt="IRORI"></div>
+      <div class="num">W01</div>
+      <div class="body">
+        <h3>IRORI</h3>
+        <div class="name-jp">いろり — 囲炉裏そのもの</div>
+        <div class="hook">場所をブランドにする。</div>
+        <div class="desc">真上から見た囲炉裏。五徳と火と灰。キャラではなく場所がアイデンティティになる。建築的・儀礼的・絶対の存在感。Anthropic 土色路線の最大値。</div>
+        <div class="tags"><span class="tag hot">場所</span><span class="tag">紋章性</span><span class="tag">儀礼</span></div>
+      </div>
+    </div>
+
+    <div class="w-card fade">
+      <div class="img"><img src="wave2/w02_hi.png" alt="HI"></div>
+      <div class="num">W02</div>
+      <div class="body">
+        <h3>HI</h3>
+        <div class="name-jp">火 — ただ一つの炎</div>
+        <div class="hook">最も小さく、最も強い。</div>
+        <div class="desc">一筆書きの炎、それだけ。Stripe S, Linear L, Notion N の隣に立てる最小単位のアイコン。何も足さない、何も引かない。スマホアプリの真ん中で生きる。</div>
+        <div class="tags"><span class="tag hot">最小</span><span class="tag">アイコン</span><span class="tag">スケーラブル</span></div>
+      </div>
+    </div>
+
+    <div class="w-card fade">
+      <div class="img"><img src="wave2/w03_gotoku.png" alt="GOTOKU"></div>
+      <div class="num">W03</div>
+      <div class="body">
+        <h3>GOTOKU</h3>
+        <div class="name-jp">五徳 — 紋章</div>
+        <div class="hook">家紋を、テック企業に。</div>
+        <div class="desc">火を支える鉄の三本足、その家紋化。和+モダンの異種交配で、契約書・名刺・羽織 (?) に刺せる重み。中堅企業の経営者にカッチリ刺さる。</div>
+        <div class="tags"><span class="tag">紋章</span><span class="tag">和モダン</span><span class="tag">B2B</span></div>
+      </div>
+    </div>
+
+    <div class="w-card fade">
+      <div class="img"><img src="wave2/w04_wa.png" alt="WA"></div>
+      <div class="num">W04</div>
+      <div class="body">
+        <h3>WA</h3>
+        <div class="name-jp">輪 — 火を囲む 8 人</div>
+        <div class="hook">集まる、を絵にした。</div>
+        <div class="desc">8 人のシルエットが火を囲む曼荼羅。"atsume" の意味そのもの。社員 / 顧客 / 仲間が一つの炎を囲む構図。コミュニティとしての強さ。</div>
+        <div class="tags"><span class="tag hot">物語</span><span class="tag">マンダラ</span><span class="tag">コミュニティ</span></div>
+      </div>
+    </div>
+
+    <div class="w-card fade">
+      <div class="img"><img src="wave2/w05_hachimaki.png" alt="HACHIMAKI"></div>
+      <div class="num">W05</div>
+      <div class="body">
+        <h3>HACHIMAKI</h3>
+        <div class="name-jp">鉢巻き — 顔のない決意</div>
+        <div class="hook">決める人、ぜんぶの象徴。</div>
+        <div class="desc">顔のない頭部に、日の丸の鉢巻き。誰のものでもなく、決意そのものを描く。Cyber Kentaroh の DNA を 1 要素だけに純化。挑戦者全員のアバター。</div>
+        <div class="tags"><span class="tag hot">挑戦者</span><span class="tag">武道</span><span class="tag">純化</span></div>
+      </div>
+    </div>
+
+    <div class="w-card fade">
+      <div class="img"><img src="wave2/w06_hiuchi.png" alt="HIUCHI"></div>
+      <div class="num">W06</div>
+      <div class="body">
+        <h3>HIUCHI</h3>
+        <div class="name-jp">火打石 — 起こす</div>
+        <div class="hook">起業の瞬間、そのもの。</div>
+        <div class="desc">二つの石が打ち合う、火が起きる。"起こす" を絵にした。創業のメタファ。サイト hero アニメ素材としても強い。動詞のブランド。</div>
+        <div class="tags"><span class="tag">起業</span><span class="tag">動詞</span><span class="tag">瞬間</span></div>
+      </div>
+    </div>
+
+    <div class="w-card fade">
+      <div class="img"><img src="wave2/w07_ascii.png" alt="ASCII"></div>
+      <div class="num">W07</div>
+      <div class="body">
+        <h3>:|:</h3>
+        <div class="name-jp">ヘッドホン — コードの文字</div>
+        <div class="hook">エンジニアの言語で書く。</div>
+        <div class="desc">ヘッドホンを ASCII のグリフに。コード上で `:|:` `[::]` と書ける、テック文化と血が繋がるロゴ。CLI 出力にも刺せる、唯一の方向性。</div>
+        <div class="tags"><span class="tag hot">テック</span><span class="tag">CLI</span><span class="tag">エンジニア</span></div>
+      </div>
+    </div>
+
+    <div class="w-card fade">
+      <div class="img"><img src="wave2/w08_shoji.png" alt="SHOJI"></div>
+      <div class="num">W08</div>
+      <div class="body">
+        <h3>SHOJI</h3>
+        <div class="name-jp">障子 — 気配としての存在</div>
+        <div class="hook">姿を見せない強さ。</div>
+        <div class="desc">障子越しに座禅する人影。日本美学の頂点。Atsume は表に出ない、家の中に火を絶やさない。粟田の "参謀 / セコンド" 思想と完全に一致。</div>
+        <div class="tags"><span class="tag">気配</span><span class="tag">参謀</span><span class="tag">日本美学</span></div>
+      </div>
+    </div>
+
+    <div class="w-card fade">
+      <div class="img"><img src="wave2/w09_hotaru.png" alt="HOTARU"></div>
+      <div class="num">W09</div>
+      <div class="body">
+        <h3>HOTARU</h3>
+        <div class="name-jp">蛍火 — 散る火、集まる火</div>
+        <div class="hook">分散した才能が、群れる。</div>
+        <div class="desc">闇に浮かぶオレンジの光点が緩やかに八角形を成す。分散ワーク / 個人の挑戦者が緩く繋がる Atsume 像。Tiny 型運営と完全に共鳴。</div>
+        <div class="tags"><span class="tag">分散</span><span class="tag">Tiny</span><span class="tag">詩的</span></div>
+      </div>
+    </div>
+
+    <div class="w-card fade">
+      <div class="img"><img src="wave2/w10_enso.png" alt="ENSO"></div>
+      <div class="num">W10</div>
+      <div class="body">
+        <h3>ENSO</h3>
+        <div class="name-jp">円相 — 禅と火</div>
+        <div class="hook">完璧じゃない円が、囲む。</div>
+        <div class="desc">墨の円 (enso) に小さな火の心臓。禅+起業の合成。"完璧でない円" は ATSUME の不完全主義 / WIP=3 ルールと響き合う。万年使える神話的なマーク。</div>
+        <div class="tags"><span class="tag hot">禅</span><span class="tag">神話</span><span class="tag">100 年</span></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<section>
-  <h2>議論サマリ — 全員合意した収束点</h2>
-  <ol style="font-size:14px;line-height:2;padding-left:24px">
-    <li>「あつめ君」廃止 + Cyber Kentaroh 視覚 5 要素同時は採用しない</li>
-    <li>ヘッドホン + オレンジ <code>#E84E1B</code> + cream + Ink黒 をブランド DNA に</li>
-    <li>属人化リスク回避 — 顔の同定性を意図的に下げる</li>
-    <li>完全自社フォントは NO-GO / Atsume Display 60 グリフ + 本文は Noto/Inter 借用</li>
-    <li>商標出願 3 区分 (9/35/42) を制作完了 30 日以内</li>
-    <li>第 1 期予算枠 <b>40 万円</b> (キャラ 5 + フォント 5 + 商標 25 + 予備 5)</li>
-    <li>多層運用 — 公式 / SNS / 裏ブランド (atsm.wtf) を分離</li>
-  </ol>
-</section>
+<!-- ========== DISCUSSION ========== -->
+<div class="disc-bg">
+  <div class="disc-inner">
+    <div class="label fade">13 voices around the fire</div>
+    <h2 class="h2 fade">経営陣<span class="dot">、</span>火を囲む<span class="dot">.</span></h2>
+    <p class="lead fade">囲炉裏（ファウンダー）と 12 の声。<br>方向は割れている。だから面白い。</p>
 
-<section>
-  <h2>経営陣ペルソナ別 推し</h2>
-  <div class="discussion">
-    <div class="card"><div class="av"><img src="avatars/awata.png" alt=""></div><div class="text"><h3>囲炉裏</h3><div class="role">Founder</div><p>ヘッドホンと集中の表現だけ絶対残す。非人間一択。<b>V01 + V06</b>。会社は俺を超えて続くべきだ。火を絶やすな。</p></div></div>
+    <div class="disc-grid">
+      <div class="disc-card fade"><div class="disc-av"><img src="avatars/awata.png" alt=""></div><div class="disc-text"><h3>囲炉裏</h3><div class="role">Founder</div><p>ヘッドホンと集中の表現だけ絶対残す。非人間一択。会社は俺を超えて続くべきだ。<b>W05 + W10</b>。火を絶やすな。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/hamada.png" alt=""></div><div class="text"><h3>Y.H.</h3><div class="role">技術顧問 (元 M 社 CPO)</div><p>社長アバターと会社マスコットは分離した方が後で楽。<b>V08 + V05</b>。経営者が「自分の味方」と感じる視覚要素を。</p></div></div>
+      <div class="disc-card fade"><div class="disc-av"><img src="avatars/hamada.png" alt=""></div><div class="disc-text"><h3>Y.H.</h3><div class="role">技術顧問 (元 M 社 CPO)</div><p>社長アバターと会社マスコットは分離した方が後で楽。<b>W08 + W09</b>。「自分の味方だ」と感じる視覚要素は、姿を見せないやつだ。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/iwase.png" alt=""></div><div class="text"><h3>M.I.</h3><div class="role">顧問弁護士 / 73 期</div><p>Cyber Kentaroh の 5 要素同時模倣は避ける。AI 生成プロセスのログ保存、商標出願 30 日以内、ファウンダー個人との使用許諾契約必須。<b>条件付き GO</b>。</p></div></div>
+      <div class="disc-card fade"><div class="disc-av"><img src="avatars/iwase.png" alt=""></div><div class="disc-text"><h3>M.I.</h3><div class="role">顧問弁護士 / 73 期</div><p>Cyber Kentaroh の 5 要素同時模倣は避ける。和の概念（囲炉裏・五徳・蛍）はパブリックドメイン領域で安全。<b>条件付き GO</b>。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/iida.png" alt=""></div><div class="text"><h3>S.I.</h3><div class="role">AI Sales</div><p>キャラは商談アイスブレイカー。初対面 30 秒で笑い取れるか、SaaS 比較表で覚えてもらえるかが勝負。<b>V01 + V08</b> を営業資料の挿絵に。</p></div></div>
+      <div class="disc-card fade"><div class="disc-av"><img src="avatars/iida.png" alt=""></div><div class="disc-text"><h3>S.I.</h3><div class="role">AI Sales</div><p>商談 30 秒で覚えてもらえるのは <b>W02 (火) + W05 (鉢巻き)</b>。サブスク契約の紙にも刺せる、SaaS 比較表で目立つ。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/kamamura.png" alt=""></div><div class="text"><h3>Y.K.</h3><div class="role">AI $$</div><p>投資家ピッチの Slide 1 右下、銀行融資の頭ページ、株主総会の白背景に置いて違和感が出ないキャラ。<b>V10 + V06</b>。資金調達資料に耐える。</p></div></div>
+      <div class="disc-card fade"><div class="disc-av"><img src="avatars/kamamura.png" alt=""></div><div class="disc-text"><h3>Y.K.</h3><div class="role">AI $$</div><p>投資家ピッチで違和感ゼロは <b>W10 (enso) + W03 (gotoku)</b>。資金調達資料に乗せて株主総会で違和感が出ない格。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/kamicha.png" alt=""></div><div class="text"><h3>K-chan</h3><div class="role">AI Architect</div><p>八角形は構造の最小単位 = 囲炉裏の形。ATSUME ロゴと自然に同居でき、拡張性が最大。<b>V10 + V05</b>。システム的に最も筋がいい。</p></div></div>
+      <div class="disc-card fade"><div class="disc-av"><img src="avatars/kamicha.png" alt=""></div><div class="disc-text"><h3>K-chan</h3><div class="role">AI Architect</div><p>システム的に最強は <b>W02 + W07</b>。火 (アイコン) と ASCII (テック文化) で UI まで一貫。拡張性無限。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/hirase.png" alt=""></div><div class="text"><h3>H.H.</h3><div class="role">AI Search Fund</div><p>Exit で売れるブランドか、5 年後の企業価値に乗るか。<b>V10 一本</b>。Buy-and-Build で各事業に乗せやすい monogram が最強。囲炉裏の周りに事業が並ぶ構図。</p></div></div>
+      <div class="disc-card fade fund"><div class="disc-av"><img src="avatars/hirase.png" alt=""></div><div class="disc-text"><h3>H.H.</h3><div class="role">AI Search Fund</div><p>5 年後 Exit に耐える神話性は <b>W10 (enso)</b> 一本。Buy-and-Build 戦略で各事業に乗せ替えても色褪せない。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/otera.png" alt=""></div><div class="text"><h3>O.O.</h3><div class="role">AI Growth Marketer</div><p>広告クリエイティブで 0.1 秒勝負。CTR 高いのは表情あり = <b>V01 / V02</b>。バイラル係数狙うなら <b>V06 (ポスター映え) + V09 (3 体構図)</b>。火を囲む人を増やす設計。</p></div></div>
+      <div class="disc-card fade fund"><div class="disc-av"><img src="avatars/otera.png" alt=""></div><div class="disc-text"><h3>O.O.</h3><div class="role">AI Growth Marketer</div><p>広告 0.1 秒勝負で CTR が立つのは <b>W05 (鉢巻き)</b>。バイラルなら <b>W04 (8人輪)</b>。火を囲む人を増やす設計。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/cmo.png" alt=""></div><div class="text"><h3>AI CMO</h3><div class="role">マーケ戦略</div><p>認知では立たせる、商談では引っ込める。<b>V06 + V09</b>。中規模企業経営者 (40-60 代) に幼稚と取られない抽象度を厳守。</p></div></div>
+      <div class="disc-card fade"><div class="disc-av"><img src="avatars/cmo.png" alt=""></div><div class="disc-text"><h3>AI CMO</h3><div class="role">マーケ戦略</div><p>40-60 代経営者に「幼稚」と取られない抽象度。<b>W01 (irori) + W10 (enso)</b>。和の格でナメられない、SI と差別化。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/cdo.png" alt=""></div><div class="text"><h3>AI CDO</h3><div class="role">デザイン統括</div><p>Anthropic 土色 × Linear 構造の中間。<b>V05 + V10</b>。Atsume Display 60 グリフ + Geist/Inter + Noto Sans JP 借用。</p></div></div>
+      <div class="disc-card fade"><div class="disc-av"><img src="avatars/cdo.png" alt=""></div><div class="disc-text"><h3>AI CDO</h3><div class="role">デザイン統括</div><p>視覚言語の頂点は <b>W08 (shoji) + W10 (enso)</b>。Atsume Display は和文字+enso 抽出グリフで作る。Anthropic 土色×日本美学。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/coo.png" alt=""></div><div class="text"><h3>AI COO</h3><div class="role">オペレーション</div><p>運用月 3 時間が上限。12 点プリセット初期投資のみ。<b>V01 + V04</b>。動くキャラ / 自社フォント / 取引先自由配布は NO-GO。</p></div></div>
+      <div class="disc-card fade"><div class="disc-av"><img src="avatars/coo.png" alt=""></div><div class="disc-text"><h3>AI COO</h3><div class="role">オペレーション</div><p>運用負荷最小は <b>W02 + W07</b>。1 アイコンで favicon/名刺/SNS 全部回せる。動かさず、変えず、増やさず。</p></div></div>
 
-    <div class="card"><div class="av"><img src="avatars/cfo.png" alt=""></div><div class="text"><h3>AI CFO</h3><div class="role">財務</div><p>第 1 期予算 40 万円が天井。完全自社フォント 200 万超は即停止。<b>V01 単独深掘り</b>が無形資産化最大化。</p></div></div>
+      <div class="disc-card fade"><div class="disc-av"><img src="avatars/cfo.png" alt=""></div><div class="disc-text"><h3>AI CFO</h3><div class="role">財務</div><p>予算 40 万円で最大 ROI は <b>W02 (火)</b> 単独。1 マークを商標 3 区分出願 + Atsume Display 20 グリフ拡張。</p></div></div>
 
-    <div class="card jobs"><div class="av"><img src="avatars/jobs.png" alt=""></div><div class="text"><h3>S.J.</h3><div class="role">アドバイザー (霊枠 / 黒タートル)</div><p>マスコットなんか要らない。製品が顔だ。だが作るなら一つだけにしろ。<b>V10 一本</b>。Cyber Kentaroh は捨てろ。中途半端は禁止。</p></div></div>
+      <div class="disc-card fade jobs"><div class="disc-av"><img src="avatars/jobs.png" alt=""></div><div class="disc-text"><h3>S.J.</h3><div class="role">アドバイザー (霊枠)</div><p>マスコットなんか要らない。製品が顔だ。だが作るなら一つだけにしろ。<b>W02 か W10、二者択一</b>。残り 8 つは捨てろ。</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== WAVE 1 ARCHIVE ========== -->
+<section class="w1">
+  <div class="w1-header fade">
+    <div>
+      <div class="label">Wave 1 — archive</div>
+      <div class="h2-sm">最初の方向性<span style="color:var(--orange)">.</span></div>
+    </div>
+    <div class="meta-sm">2026.05.28 / 八角形+ヘッドホン路線 / V01 〜 V10</div>
+  </div>
+  <div class="v-grid">
+    <div class="v-card"><img src="images/v01_base.png" alt=""><div class="v-body"><div class="v-id">V01</div><div class="v-name">Base</div></div></div>
+    <div class="v-card"><img src="images/v02_focused.png" alt=""><div class="v-body"><div class="v-id">V02</div><div class="v-name">Focused</div></div></div>
+    <div class="v-card"><img src="images/v03_side_walk.png" alt=""><div class="v-body"><div class="v-id">V03</div><div class="v-name">Side Walk</div></div></div>
+    <div class="v-card"><img src="images/v04_sticker.png" alt=""><div class="v-body"><div class="v-id">V04</div><div class="v-name">Sticker</div></div></div>
+    <div class="v-card"><img src="images/v05_minimal_line.png" alt=""><div class="v-body"><div class="v-id">V05</div><div class="v-name">Minimal Line</div></div></div>
+    <div class="v-card"><img src="images/v06_filled.png" alt=""><div class="v-body"><div class="v-id">V06</div><div class="v-name">Filled</div></div></div>
+    <div class="v-card"><img src="images/v07_pixel_vector.png" alt=""><div class="v-body"><div class="v-id">V07</div><div class="v-name">Pixel-Vector</div></div></div>
+    <div class="v-card"><img src="images/v08_working.png" alt=""><div class="v-body"><div class="v-id">V08</div><div class="v-name">Working</div></div></div>
+    <div class="v-card"><img src="images/v09_group_three.png" alt=""><div class="v-body"><div class="v-id">V09</div><div class="v-name">Group of Three</div></div></div>
+    <div class="v-card"><img src="images/v10_monogram.png" alt=""><div class="v-body"><div class="v-id">V10</div><div class="v-name">Monogram</div></div></div>
   </div>
 </section>
 
-<section>
-  <h2>10 バリエーション</h2>
-  <div class="grid">
-    <div class="v hero"><img src="images/v01_base.png" alt="V01 Base"><div class="body"><div class="id">V01 — ★★★★★</div><div class="name">Base Atsume</div><div class="star">粟田 / COO / CFO 推し</div><p>M額 + ヘッドホン + 八角形 + 黒ボディ。新生アツメ君の本命。デフォルトポーズ。Slack/favicon/名刺に最適。</p></div></div>
+<!-- ========== HOW TO HELP ========== -->
+<div class="help-bg">
+  <div class="help-inner">
+    <div class="label fade" style="justify-content:center">あなたへのお願い</div>
+    <h2 class="h2 fade">あなたの Claude Code <em>で</em><br>厳しく斬ってくれ<span class="dot">.</span></h2>
+    <p class="lead fade">10 個全部良く見えてしまう病。<br>外の目で、忌憚なく。</p>
 
-    <div class="v"><img src="images/v02_focused.png" alt="V02 Focused"><div class="body"><div class="id">V02 — ★★★★</div><div class="name">Focused</div><div class="star">親しみ路線</div><p>3点の集中マーク。ニコニコ目で親しみ↑。「考え中」演出に使える。</p></div></div>
+    <div class="help-cmds">
+      <div class="cmd fade">
+        <span class="step">step 1 / clone</span>
+        <code><span class="c">$</span> git clone \<br>github.com/atsume-group/<br>atsume-char-preview</code>
+      </div>
+      <div class="cmd fade">
+        <span class="step">step 2 / open</span>
+        <code><span class="c">$</span> cd atsume-char-preview<br><span class="c">$</span> claude</code>
+      </div>
+      <div class="cmd fade">
+        <span class="step">step 3 / 投げる</span>
+        <code>このリポの W01-W10 を、ブランド・著作権・経営戦略の観点から忌憚なく厳しくレビューして。</code>
+      </div>
+    </div>
 
-    <div class="v"><img src="images/v03_side_walk.png" alt="V03 Side"><div class="body"><div class="id">V03 — ★★★</div><div class="name">Side Walk</div><div class="star">動きあり</div><p>オクタゴンヘッドのまま脚あり。「前に進める」を体現。ただし人間体に近く違和感あり。要再検討。</p></div></div>
-
-    <div class="v"><img src="images/v04_sticker.png" alt="V04 Sticker"><div class="body"><div class="id">V04 — ★★★</div><div class="name">Sticker</div><div class="star">COO 推し</div><p>白フチ Die-cut。シルエット最強。Slack アバター / Twitter アイコン候補。</p></div></div>
-
-    <div class="v"><img src="images/v05_minimal_line.png" alt="V05 Line"><div class="body"><div class="id">V05 — ★★★★</div><div class="name">Minimal Line</div><div class="star">濱田 / CDO 推し</div><p>線画のみ Linear/Vercel 系。極限ミニマル。「気持ち」やや希薄だが資料スライドに最適。</p></div></div>
-
-    <div class="v hero"><img src="images/v06_filled.png" alt="V06 Filled"><div class="body"><div class="id">V06 — ★★★★★</div><div class="name">Filled (poster)</div><div class="star">粟田 / CMO 推し</div><p>オレンジ充填、Mが完全に主役。ヒーロー画像 / 封筒 / Tシャツ / LP メインビジュアル向け。</p></div></div>
-
-    <div class="v"><img src="images/v07_pixel_vector.png" alt="V07 Pixel"><div class="body"><div class="id">V07 — ★★★★</div><div class="name">Pixel-Vector Hybrid</div><div class="star">Cyber 精神継承</div><p>Teenage Engineering 感。Cyber Kentaroh の DNA をベクター昇格。SNS / Tシャツ向き。</p></div></div>
-
-    <div class="v"><img src="images/v08_working.png" alt="V08 Working"><div class="body"><div class="id">V08 — ★★★★</div><div class="name">Working</div><div class="star">濱田 推し</div><p>道具持ち + ノート。Craft 事業の象徴に最適。「職人」「弟子」のメタファー。</p></div></div>
-
-    <div class="v"><img src="images/v09_group_three.png" alt="V09 Group"><div class="body"><div class="id">V09 — ★★★</div><div class="name">Group of Three</div><div class="star">CMO 推し</div><p>"集める" のコンセプト体現。3 表情の差分にも使える。コーポレートサイト下部のセクション素材に。</p></div></div>
-
-    <div class="v hero"><img src="images/v10_monogram.png" alt="V10 Monogram"><div class="body"><div class="id">V10 — ★★★★★</div><div class="name">Monogram (M字一体)</div><div class="star">CDO / Jobs 推し</div><p>Stripe S / Notion N 系。ロゴと完全融合。退化耐性が最も高い。ブランド資産として最強。</p></div></div>
+    <div class="help-cta">
+      <a class="btn" href="https://github.com/atsume-group/atsume-char-preview" target="_blank" rel="noopener">GitHub で開く</a>
+      <a class="btn ghost" href="https://github.com/atsume-group/atsume-char-preview/issues/new" target="_blank" rel="noopener">Issue で意見投稿</a>
+    </div>
   </div>
-</section>
-
-<section>
-  <h2>収束候補と次の一手</h2>
-  <div class="rec">
-    <p style="margin-bottom:16px;font-size:14px"><b>俺の見立て:</b> <b style="color:var(--orange)">V01 を「キャラ」、V10 を「ロゴ補強」として併用</b>。Stripe が S アイコンとロゴを別ファイルで運用するのと同じ。V06 はポスター用に第3軸として確保。</p>
-    <table>
-      <tr><th>選択肢</th><th>戦略</th><th>次アクション</th></tr>
-      <tr><td><b>A</b></td><td>V01 単独深掘り</td><td>V01 だけ 10 バリ追加 (表情/ポーズ/色)</td></tr>
-      <tr><td><b>B</b></td><td>V01 + V10 両輪</td><td>各 5 バリ深掘り (計 10 枚追加)</td></tr>
-      <tr><td><b>C</b></td><td>V10 一本 (Jobs 派)</td><td>V10 だけ 10 バリ + フォント拡張連動</td></tr>
-      <tr><td><b>D</b></td><td>保留・整理に戻る</td><td>フォント設計と商標出願準備に着手</td></tr>
-    </table>
-  </div>
-</section>
+</div>
 
 <footer>
-  <div>© 2026 ATSUME Dev Inc. — Internal preview</div>
+  <div>© 2026 ATSUME DEV INC. — Internal preview</div>
   <div><span class="wtf">atsm.wtf</span></div>
 </footer>
 
 <script>
-  // Client-side gate (not real security — gentle URL gate)
+  // Password gate (sha256 of "rtt")
   const HASH = "150a7f114f74fba22e4057f650d0718d4656b340f314657c6167003a7a80e7a1";
   async function sha256(s){
     const buf = new TextEncoder().encode(s);
@@ -219,17 +452,31 @@
   async function chk(e){
     e.preventDefault();
     const v = document.getElementById("pw").value.trim();
-    const h = await sha256(v);
-    if(h===HASH){
+    if((await sha256(v))===HASH){
       sessionStorage.setItem("atsm-ok","1");
       document.getElementById("gate").classList.add("hidden");
+      initFades();
     } else {
-      document.getElementById("err").textContent="× nope";
+      document.getElementById("err").textContent="× wrong";
     }
     return false;
   }
   if(sessionStorage.getItem("atsm-ok")==="1"){
     document.getElementById("gate").classList.add("hidden");
+  }
+
+  // Fade in on scroll
+  function initFades(){
+    const els = document.querySelectorAll(".fade");
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}
+      });
+    },{threshold:0.1,rootMargin:"0px 0px -50px 0px"});
+    els.forEach(el=>io.observe(el));
+  }
+  if(sessionStorage.getItem("atsm-ok")==="1"){
+    document.addEventListener("DOMContentLoaded",initFades);
   }
 </script>
 </body>
